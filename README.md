@@ -109,7 +109,7 @@ $> sudo reboot
 $> sudo fail2ban-client status ssh
 ```
 
-## Application functionality
+## Criteria # 3: Application functionality
 
 ### - Apache2 and WSGI support
 
@@ -233,4 +233,31 @@ $> sudo a2dissite 000-default
 $> sudo a2endsite CatalogApp
    Restart apache2 service
 $> sudo service apache2 restart
+```
+## Install NewRelic as monitoring tool
+
+```bash
+   Install application monitoring agent and generate the settings
+$> sudo pip install newrelic
+$> newrelic-admin generate-config de403226fbf52697b26124f59923897XXXXXXXXX /var/www/fullstack-nanodegree-flask-item-catalog/vagrant/catalog/newrelic.ini
+   Modify your .wsgi file
+$> nano /var/www/fullstack-nanodegree-flask-item-catalog/vagrant/catalog/catalogApp.wsgi
+   write above of "from app import app as application"
+   import newrelic.agent
+   newrelic.agent.initialize('/var/www/fullstack-nanodegree-flask-item-catalog/vagrant/catalog/newrelic.ini')
+   then, restart apache2 service
+$> sudo service apache2 restart
+   Install server monitoring agent
+$> sudo nano /etc/apt/sources.list.d/newrelic.list
+   write the new relic repository
+   deb http://apt.newrelic.com/debian/ newrelic non-free
+$> wget -O- https://download.newrelic.com/548C16BF.gpg | sudo apt-key add -
+$> sudo apt-get update
+   install the agent package
+$> sudo apt-get install newrelic-sysmond
+   create the settings
+$> sudo nrsysmond-config --set license_key=de403226fbf52697b26124f59923897XXXXXXXXX
+   start the agent service
+$> sudo service newrelic-sysmond start
+$> sudo reboot
 ```
