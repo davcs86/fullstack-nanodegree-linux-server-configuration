@@ -7,7 +7,7 @@
 ```bash
 $> adduser grader
 $> usermod -a -G sudo grader
-    ```
+```
 
 ### - Give ssh acccess to grader
 
@@ -19,16 +19,16 @@ $> ssh-keygen -t rsa
 
 Upload the `grader_udacity_key.rsa.pub` to the server with the root key
 
-  ```bash
-  $> cat ~/.ssh/grader_udacity_key.rsa.pub | ssh -i ~/.ssh/udacity_key.rsa root@54.69.180.83 "mkdir /home/grader/.ssh && cat >> /home/grader/.ssh/authorized_keys"
-  ```
+```bash
+$> cat ~/.ssh/grader_udacity_key.rsa.pub | ssh -i ~/.ssh/udacity_key.rsa root@54.69.180.83 "mkdir /home/grader/.ssh && cat >> /home/grader/.ssh/authorized_keys"
+```
 
 **Logout from root account, then use the grader account**
 
-  ```bash
+```bash
 $> exit
 $> ssh -i ~/.ssh/grader_udacity_key.rsa grader@54.69.180.83
-  ```
+```
 
 # Criteria # 2: Security
 
@@ -36,16 +36,16 @@ $> ssh -i ~/.ssh/grader_udacity_key.rsa grader@54.69.180.83
 
 With grader account
 
-  ```bash
+```bash
 $> sudo nano /etc/ssh/sshd_config
    edit the options
    Port 2200
    and 
    PermitRootLogin no
-  ```
+```
   
 restart ssh service
 
-  ```bash
+```bash
 $> sudo service ssh restart
-  ```
+```
