@@ -1,28 +1,26 @@
 # fullstack-nanodegree-linux-server-configuration
 
-# Criteria # 1: 
+# Criteria # 1: User management
 
-Remote login of the root user has been disabled, a remote user that can sudo to root has been defined, user passwords are set securely.
+### - Create a new user named grader and grant this user sudo permissions.
 
-### Create a new user named grader and grant this user sudo permissions.
-
-  ```bash
+```bash
 $> adduser grader
 $> usermod -a -G sudo grader
-  ```
+    ```
 
-### Give ssh acccess to grader
+### - Give ssh acccess to grader
 
 Create a local key `grader_udacity_key.rsa`
 
-  ```bash
+```bash
 $> ssh-keygen -t rsa
-  ```
+```
 
 Upload the `grader_udacity_key.rsa.pub` to the server with the root key
 
   ```bash
-$> cat ~/.ssh/grader_udacity_key.rsa.pub | ssh -i ~/.ssh/udacity_key.rsa root@54.69.180.83 "mkdir /home/grader/.ssh && cat >> /home/grader/.ssh/authorized_keys"
+  $> cat ~/.ssh/grader_udacity_key.rsa.pub | ssh -i ~/.ssh/udacity_key.rsa root@54.69.180.83 "mkdir /home/grader/.ssh && cat >> /home/grader/.ssh/authorized_keys"
   ```
 
 **Logout from root account, then use the grader account**
@@ -32,7 +30,9 @@ $> exit
 $> ssh -i ~/.ssh/grader_udacity_key.rsa grader@54.69.180.83
   ```
 
-### Disable remote login to root
+# Criteria # 2: Security
+
+### - Disable remote login to root
 
 With grader account
 
